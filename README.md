@@ -14,11 +14,6 @@ dailydevotion/
         └── lib/forms/        zod schemas, Resend emails
 ```
 
-## Placeholders and decisions still open
-
-- **Emails:** the contact address is `support@getdailydevotion.com` (footer, legal pages, contact page, JSON-LD, email reply-to). Aarihant's email (`arihant@getdailydevotion.com`) and LinkedIn (https://www.linkedin.com/in/aarihant-aaryan-1900b4171/) close his timeline in the Founder section: a last lamp, "Write to Aarihant", which lights as you reach it. They're deliberately not buttons on the card, which is how the doomcure site did it. All of these are in `web/src/lib/site.ts`. To receive mail at these addresses, `getdailydevotion.com` needs a mailbox provider (see "Email (Resend)" below).
-- **Legal review.** `/privacy` and `/terms` are full drafts written for Indian law (IT Act 2000, SPDI Rules 2011, DPDP Act 2023 and DPDP Rules 2025), adapted from the doomcure pages. Have a lawyer review them before launch. The "Last updated" date and the location are in `web/src/lib/legal.ts`.
-- **Brand sheet.** `Brand.dc.html` and `canvas.json` were not in the design export. The favicon, apple icon and OG image are built from the flame SVG in `Main.dc.html`.
 
 ## What runs in the browser
 
@@ -117,8 +112,7 @@ curl -H "X-Admin-Token: $ADMIN_TOKEN" https://getdailydevotion.com/api/waitlist/
 
 No `api.getdailydevotion.com` record is needed; the forms run inside the same app.
 
-### Email (Resend)
-Resend → **Domains → Add Domain** → the domain of `EMAIL_FROM` (`getdailydevotion.com`). Add the MX/SPF/DKIM (and optionally DMARC) records it lists to that domain's DNS, then **Verify**. Resend only sends; to receive mail at `support@…` and `arihant@…`, set up a mailbox provider (Google Workspace, Zoho, …) and its MX records for that domain.
+
 
 ### Optional: dailydevotion.ai → getdailydevotion.com (301)
 If you buy it: add `dailydevotion.ai` and `www.dailydevotion.ai` to the same Vercel project under **Settings → Domains**, choose **Redirect to `getdailydevotion.com`** with **301 (Permanent)**, and point its DNS at Vercel with the records shown. Vercel's redirect keeps the path; GoDaddy's own "Forwarding → 301" also works but drops it.
@@ -141,8 +135,7 @@ Compared side by side in Chrome at 1440px and 390px, scrolling dawn to night:
 - **Pixels:** under 0.5% differ per section at 1440px (looping animations caught at different moments). At 390px the most is 1.5%, in Idea (the centred "here" disc, below) and Circle (the ring, below).
 - **Interactions:** all checked in the browser: greeting rotation, typing and reduced-motion, cursor light, anchors under the sticky bar, bead nav current/past, tablist keyboard, Venn hover/click, lamps, sky dark switch, and waitlist idle → submitting → success/error.
 
-Intentional differences:
-- **Founder photo** replaces the `[FOUNDER PHOTO]` / "AA" placeholder: `web/src/assets/founder/aarihant-aaryan.jpg` (cropped from the supplied screenshot to fit the arch), served by `next/image` with a blur placeholder.
+
 - **Ring radius** is `--ring-r`, scaled from the ring's width (170px at 420px). In the design, the dots spill outside the ring on phones.
 - **Candle flame** sits on the wick and grows on success. In the design, the `flick` animation overrode the flame's `transform`, so it sat at the bottom of the candle and never grew. Its scale is now a registered custom property, `--fs`, which can transition while it flickers.
 - **Venn "here" disc** is centred with the `translate` property. In the design, the `breathe` animation replaced `translate(-50%,-50%)` and the disc drifted off-centre.
