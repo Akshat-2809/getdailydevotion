@@ -1,0 +1,40 @@
+.top { position: sticky; top: 0; z-index: 40; padding-block: 18px; }
+.solid { background: color-mix(in srgb, var(--sky) 78%, transparent); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line); }
+.topin { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.wm { font-family: var(--disp); font-size: 28px; line-height: 1; letter-spacing: -.01em; }
+.wm em { font-style: italic; }
+.btn { min-height: 44px; padding: 0 20px; font-size: 15px; backdrop-filter: blur(10px); }
+.flamemark { animation: flick 3.2s ease-in-out infinite; transform-origin: 50% 90%; }
+
+/* desktop: links in a glass pill, centred between logo and button */
+.pill { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 2px; padding: 5px; border-radius: 999px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); backdrop-filter: blur(10px); }
+.pl { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 34px; padding: 0 15px; border-radius: 999px; font: 500 14.5px var(--body); color: var(--ink2); text-decoration: none; white-space: nowrap; transition: color .3s, background .3s; }
+.pl:hover { color: var(--ink); }
+/* the current link gets a lit flame dot */
+.pl::before { content: ""; width: 0; height: 6px; border-radius: 50%; background: var(--flame); box-shadow: 0 0 10px 2px var(--flame); opacity: 0; transition: width .4s var(--ease), opacity .4s; }
+.pl.on { color: var(--ink); background: var(--card2); box-shadow: inset 0 0 0 1px var(--line); }
+.pl.on::before { width: 6px; opacity: 1; }
+
+/* phones: a bead button and a glass panel */
+.menu { display: none; position: relative; }
+.menuBtn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); backdrop-filter: blur(10px); cursor: pointer; }
+.menuBtn i { display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--ink2); transition: all .4s var(--ease); }
+.menuBtn.open i { background: var(--flame); box-shadow: 0 0 8px 1px var(--flame); }
+.menuBtn.open i:nth-child(2) { width: 7px; height: 7px; }
+.panel { position: absolute; right: 0; top: calc(100% + 12px); width: min(300px, calc(100vw - 40px)); padding: 10px; display: flex; flex-direction: column; background: color-mix(in srgb, var(--sky) 90%, transparent); animation: drop .45s var(--ease) both; }
+.panel[hidden] { display: none; }
+.pi { display: flex; align-items: baseline; gap: 14px; padding: 12px 14px; border-radius: 16px; font-family: var(--disp); font-size: 28px; line-height: 1.1; color: var(--ink); text-decoration: none; animation: drop .45s var(--ease) both; }
+.pi:hover, .pi.on { background: var(--card2); color: var(--ink); }
+.pi.on .num { color: var(--flame); }
+.num { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--ink2); }
+.panelCta { margin-top: 8px; }
+
+@keyframes flick { 0%, 100% { transform: scale(1) rotate(0); } 30% { transform: scale(1.04, .96) rotate(-1.5deg); } 60% { transform: scale(.97, 1.04) rotate(1.5deg); } }
+@keyframes drop { from { opacity: 0; transform: translateY(-8px); } }
+
+@media (max-width: 1000px) {
+  .pill { display: none; }
+  .menu { display: block; }
+  .btn { display: none; }
+}

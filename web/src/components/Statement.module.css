@@ -1,0 +1,14 @@
+.state { padding-block: 120px; }
+.state p { font-family: var(--disp); font-size: clamp(34px, 4.6vw, 64px); line-height: 1.12; max-width: 20ch; }
+.state p span { display: block; }
+.state p em { font-style: italic; color: var(--accentText); }
+
+/* Each line comes into focus as it scrolls in. */
+@supports (animation-timeline: view()) {
+  .state p span { animation: lineIn linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
+}
+@keyframes lineIn { from { opacity: .12; filter: blur(8px); transform: translateY(20px); } }
+
+@media (max-width: 1000px) {
+  .state { padding-block: 88px; }
+}

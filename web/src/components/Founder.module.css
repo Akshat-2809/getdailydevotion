@@ -1,0 +1,39 @@
+.fgrid { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: 56px; align-items: start; }
+.fcard { position: sticky; top: 100px; padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+.fph { aspect-ratio: 1; max-width: 100%; border-radius: 200px 200px 24px 24px; background: linear-gradient(180deg, #F7B98A, #C97C94 60%, #3A2F5C); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; position: relative; overflow: hidden; }
+/* The design's gradient stays behind the photo while it loads. */
+.photo { object-fit: cover; object-position: 50% 30%; }
+.name { display: flex; flex-direction: column; gap: 4px; }
+.nm { font-family: var(--disp); font-size: 34px; line-height: 1; }
+.bio { color: var(--ink2); font-size: 15.5px; }
+.bio em { font-family: var(--disp); font-size: 18px; }
+
+.col { display: flex; flex-direction: column; gap: 40px; }
+.intro { display: flex; flex-direction: column; gap: 18px; }
+.h2 { font-size: clamp(40px, 5vw, 72px); }
+
+.lamps { display: flex; flex-direction: column; }
+.lamp { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 22px; padding-bottom: 34px; position: relative; }
+.lamp::before { content: ""; position: absolute; left: 26px; top: 44px; bottom: 0; width: 1.5px; background: var(--line); }
+.lamp:last-child::before { display: none; }
+.lt { width: 54px; height: 54px; border-radius: 50%; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); display: flex; align-items: center; justify-content: center; transition: box-shadow .6s, background .6s; }
+.lt svg { opacity: .35; transition: opacity .6s, transform .6s var(--ease); }
+.lamp.lit .lt { background: var(--ink); box-shadow: 0 0 0 6px rgba(242, 181, 68, .18), 0 0 34px 6px rgba(242, 181, 68, .55); }
+.lamp.lit .lt svg { opacity: 1; transform: scale(1.08); }
+.yr { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; color: var(--ink2); }
+.lamp h3 { font-size: clamp(28px, 2.6vw, 38px); margin: 4px 0 8px; }
+.lamp p { color: var(--ink2); max-width: 52ch; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.signoff > div { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding-top: 4px; }
+/* Both links take the accent colour (gold at dusk and night, deep amber by day) so they stand out from the timeline text. */
+.mail { font-family: var(--disp); font-size: clamp(26px, 2.6vw, 36px); line-height: 1.15; color: var(--accentText); text-decoration: none; overflow-wrap: anywhere; text-shadow: 0 0 24px color-mix(in srgb, var(--flame) 45%, transparent); background: linear-gradient(var(--flame), var(--flame)) 0 100% / 100% 1.5px no-repeat; padding-bottom: 2px; transition: background-size .4s var(--ease), color .3s; }
+.mail:hover, .mail:focus-visible { color: var(--accentText); background-size: 100% 3px; }
+/* a small chip; its backing is --inv (dark at night, cream by day) so the small text keeps its contrast */
+.li { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 7px 13px; border-radius: 999px; font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accentText); text-decoration: none; background: color-mix(in srgb, var(--inv) 45%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accentText) 45%, transparent); transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+.li:hover { color: var(--accentText); transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--accentText), 0 8px 24px -8px var(--flame); }
+.stats span { font-family: var(--mono); font-size: 11.5px; padding: 6px 12px; border-radius: 999px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+
+@media (max-width: 1000px) {
+  .fgrid { grid-template-columns: minmax(0, 1fr); }
+  .fcard { position: relative; top: 0; }
+}

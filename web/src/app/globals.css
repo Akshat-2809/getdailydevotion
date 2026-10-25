@@ -1,0 +1,107 @@
+/* Design tokens. Ported from `.dd` in design/project/Main.dc.html.
+   SkyBackground writes --sky to <html> on scroll and sets data-sky="dark" when the sky's luminance drops below .5. */
+:root {
+  --gold: #F2B544;
+  --ember: #E07A3F;
+  --plum: #3A2F5C;
+  --night: #0E0C1F;
+  --flame: #F2B544;
+  --disp: var(--font-instrument), Georgia, serif;
+  --body: var(--font-figtree), system-ui, -apple-system, sans-serif;
+  --mono: var(--font-dmmono), ui-monospace, monospace;
+  --ease: cubic-bezier(.22, .7, .12, 1);
+  --top-h: 80px;
+
+  --sky: rgb(246, 210, 190);
+  --ink: #1D1830;
+  --ink2: #4B4363;
+  --line: rgba(29, 24, 48, .16);
+  --card: rgba(255, 255, 255, .55);
+  --card2: rgba(255, 255, 255, .7);
+  --inv: #FFF8EC;
+  --accentText: #9A4A2E;
+}
+
+html[data-sky="dark"],
+.tone-dark {
+  --ink: #F3EEF8;
+  --ink2: #C9C0DC;
+  --line: rgba(243, 238, 248, .2);
+  --card: rgba(255, 255, 255, .08);
+  --card2: rgba(255, 255, 255, .06);
+  --inv: #1D1830;
+  --accentText: #F6D48A;
+}
+
+/* Sub-pages use a fixed sky instead of the scroll-driven one. */
+.tone-dark,
+.tone-light { color: var(--ink); }
+/* Paints the tone behind the page too, so contrast checkers (which can't see the fixed sky layer) measure the right colour. */
+.tone-bg { background-color: var(--sky); }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: #F6D2BE;
+  font-family: var(--body);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  transition: color .6s ease;
+}
+
+a { color: inherit; }
+a:hover { color: inherit; }
+
+/* The sticky top bar would otherwise cover anchored sections. */
+section[id], footer[id], [data-anchor] { scroll-margin-top: var(--top-h); }
+
+.layer { position: relative; z-index: 1; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 72px); }
+
+h1, h2, h3 { margin: 0; font-family: var(--disp); font-weight: 400; letter-spacing: -.01em; text-wrap: balance; line-height: 1.02; }
+h1 em, h2 em, h3 em { font-style: italic; color: var(--accentText); }
+p { margin: 0; }
+
+.lab { font-family: var(--mono); font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink2); }
+.h2 { font-size: clamp(44px, 6vw, 88px); }
+.lede { font-size: 19px; color: var(--ink2); max-width: 52ch; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 999px; font: 600 16px var(--body); text-decoration: none; border: 0; cursor: pointer; transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .3s; }
+.btn-glow { background: var(--ink); color: var(--inv); box-shadow: 0 0 0 0 rgba(242, 181, 68, 0); }
+.btn-glow:hover { color: var(--inv); transform: translateY(-2px); box-shadow: 0 10px 40px -6px var(--flame); }
+.btn-soft { background: var(--card); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.btn-soft:hover { color: var(--ink); transform: translateY(-2px); }
+.btn:disabled { cursor: progress; transform: none; opacity: .8; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--flame); outline-offset: 4px; }
+
+.sec { padding-block: 120px; }
+.shead { display: flex; flex-direction: column; gap: 18px; max-width: 760px; margin-bottom: 52px; }
+@media (max-width: 1000px) {
+  .sec { padding-block: 88px; }
+}
+
+.card { border-radius: 28px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line), 0 40px 80px -50px rgba(40, 20, 60, .45); backdrop-filter: blur(18px) saturate(1.3); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* Scroll-driven reveals, where supported. */
+@supports (animation-timeline: view()) {
+  .rv { animation: rv linear both; animation-timeline: view(); animation-range: entry 5% entry 70%; }
+}
+@keyframes rv { from { opacity: 0; transform: translateY(50px); filter: blur(6px); } }
+
+/* Looping animations stop while their section is off-screen (see components/Offscreen.tsx). */
+[data-offscreen] *, [data-offscreen] *::before, [data-offscreen] *::after { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  body *, body *::before, body *::after { animation: none !important; transition: none !important; }
+}

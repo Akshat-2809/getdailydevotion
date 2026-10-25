@@ -1,0 +1,33 @@
+.mgrid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 40px; align-items: stretch; }
+.days { display: flex; flex-direction: column; gap: 6px; }
+.day { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 58px; padding: 0 18px; border-radius: 16px; border: 0; background: transparent; color: var(--ink); font: 500 16px var(--body); text-align: left; cursor: pointer; transition: background .3s, transform .4s var(--ease); }
+.day:hover { background: var(--card); }
+.dn { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; color: var(--ink2); }
+.dt { font-family: var(--disp); font-size: 24px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.day.on { background: var(--card); box-shadow: inset 0 0 0 1px var(--line); transform: translateX(8px); }
+.day.on .dot { background: var(--flame); box-shadow: 0 0 12px 2px var(--flame); }
+
+.mcard { position: relative; padding: 44px; display: flex; flex-direction: column; justify-content: space-between; gap: 30px; min-height: 460px; overflow: hidden; }
+.glow { position: absolute; right: -120px; top: -120px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, var(--flame), transparent 65%); opacity: .35; animation: breathe 6s ease-in-out infinite; }
+.body { display: flex; flex-direction: column; gap: 22px; position: relative; }
+.theme { font-family: var(--disp); font-style: italic; font-size: clamp(56px, 6vw, 92px); line-height: .95; }
+.txt { font-family: var(--disp); font-size: clamp(24px, 2.4vw, 32px); line-height: 1.25; max-width: 26ch; }
+.meta { position: relative; display: flex; gap: 18px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); }
+.fA { animation: cardA .8s var(--ease) both; }
+.fB { animation: cardB .8s var(--ease) both; }
+
+@keyframes breathe { 50% { opacity: .7; transform: scale(1.08); } }
+@keyframes cardA { from { opacity: 0; transform: translateY(24px); filter: blur(6px); } }
+@keyframes cardB { from { opacity: 0; transform: translateY(24px); filter: blur(6px); } }
+
+@media (max-width: 1000px) {
+  .mgrid { grid-template-columns: minmax(0, 1fr); }
+  .mcard { min-height: 0; padding: 30px; }
+}
+@media (max-width: 620px) {
+  .days { flex-direction: row; overflow-x: auto; padding-bottom: 6px; }
+  .day { grid-template-columns: auto; min-width: 96px; justify-items: center; padding: 12px; }
+  .dot { display: none; }
+  .day.on { transform: none; }
+}

@@ -1,0 +1,2 @@
+.sky { position: fixed; inset: 0; z-index: 0; background-color: var(--sky); transition: background-color .5s linear; pointer-events: none; }
+.sky::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 255, .35), transparent 70%); }
