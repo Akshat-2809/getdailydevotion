@@ -20,9 +20,8 @@
 .field input::placeholder, .field textarea::placeholder { color: var(--ink2); opacity: .7; }
 .field input:focus, .field textarea:focus { box-shadow: inset 0 0 0 1px var(--flame), 0 0 24px -4px rgba(242, 181, 68, .55); }
 .field [aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--accentText); }
-.ferr, .formErr { display: flex; gap: 10px; align-items: baseline; font-size: 14.5px; color: var(--ink); }
-.ferr::before, .formErr::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ember); box-shadow: 0 0 10px 2px var(--ember); transform: translateY(-1px); }
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.ferr { display: flex; gap: 10px; align-items: baseline; font-size: 14.5px; color: var(--ink); }
+.ferr::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ember); box-shadow: 0 0 10px 2px var(--ember); transform: translateY(-1px); }
 .actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
 .fine { font-size: 14px; color: var(--ink2); }
 

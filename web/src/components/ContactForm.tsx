@@ -1,25 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { sendContactMessage } from "@/app/actions/contact";
-import type { ContactField as Field } from "@/lib/forms/schemas";
-import { CONTACT_EMAIL } from "@/lib/site";
+import { CONTACT_FIELDS, contactSchema, type ContactField as Field } from "@/lib/forms/schemas";
 import s from "./Contact.module.css";
 
 type FieldErrors = Partial<Record<Field, string>>;
-type Status = "idle" | "submitting" | "success" | "error";
+type Status = "idle" | "success" | "error";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function validate(v: Record<Field, string>): FieldErrors {
-  const e: FieldErrors = {};
-  if (!v.name.trim()) e.name = "Please enter your name.";
-  if (!EMAIL_RE.test(v.email.trim())) e.email = "Please enter a valid email address.";
-  if (v.message.trim().length < 10) e.message = "Please write a little more, at least 10 characters.";
-  return e;
-}
-
-/** Contact form → sendContactMessage Server Action. Errors sit next to each field; on success a small flame lights. */
+/** Contact form, checked in the browser only: nothing is sent or stored. Errors sit next to each field; on success a small flame lights. */
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
@@ -30,38 +18,28 @@ export function ContactForm() {
     if (status === "success") doneRef.current?.focus();
   }, [status]);
 
-  async function send(e: React.FormEvent<HTMLFormElement>) {
+  function send(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (status === "submitting") return;
     const form = new FormData(e.currentTarget);
-    const values = {
+    const parsed = contactSchema.safeParse({
       name: String(form.get("name") ?? ""),
       email: String(form.get("email") ?? ""),
       message: String(form.get("message") ?? ""),
-    };
-    const local = validate(values);
-    if (Object.keys(local).length) {
-      setFieldErrors(local);
+    });
+    if (!parsed.success) {
+      const errors: FieldErrors = {};
+      for (const issue of parsed.error.issues) {
+        const key = issue.path[0] as Field;
+        if (CONTACT_FIELDS.includes(key)) errors[key] ??= issue.message;
+      }
+      setFieldErrors(errors);
       setError("Please check the highlighted fields and try again.");
       setStatus("error");
       return;
     }
-    setStatus("submitting");
     setFieldErrors({});
     setError("");
-    try {
-      const res = await sendContactMessage({ ...values, website: String(form.get("website") ?? "") });
-      if (res.status === "sent") {
-        setStatus("success");
-        return;
-      }
-      setFieldErrors(res.fieldErrors ?? {});
-      setError(res.message);
-    } catch {
-      // The action itself couldn't be reached (offline, deploy in progress).
-      setError(`We couldn't reach our server. Please check your connection and try again, or email ${CONTACT_EMAIL}.`);
-    }
-    setStatus("error");
+    setStatus("success");
   }
 
   if (status === "success") {
@@ -79,10 +57,10 @@ export function ContactForm() {
     fieldErrors[f] && <span id={`cf-${f}-err`} className={s.ferr}>{fieldErrors[f]}</span>;
 
   return (
-    <form className={s.form} onSubmit={send} noValidate aria-busy={status === "submitting"}>
+    <form className={s.form} onSubmit={send} noValidate>
       <h2 className={s.formTitle}>Send a message</h2>
       <p className="sr-only" aria-live="polite">
-        {status === "submitting" ? "Sending your message…" : status === "error" ? error : ""}
+        {status === "error" ? error : ""}
       </p>
 
       <div className={s.two}>
@@ -107,17 +85,8 @@ export function ContactForm() {
         {fieldError("message")}
       </div>
 
-      <div className={s.hp} aria-hidden="true">
-        <label htmlFor="cf-website">Website</label>
-        <input id="cf-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
-      </div>
-
-      {status === "error" && !Object.keys(fieldErrors).length && <p className={s.formErr}>{error}</p>}
-
       <div className={s.actions}>
-        <button type="submit" className="btn btn-glow" disabled={status === "submitting"}>
-          {status === "submitting" ? "Sending…" : "Send message"}
-        </button>
+        <button type="submit" className="btn btn-glow">Send message</button>
         <span className={s.fine}>We&apos;ll only use your details to reply.</span>
       </div>
     </form>

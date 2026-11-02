@@ -6,7 +6,7 @@ import { CONTACT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms of use — Daily Devotion",
-  description: "The terms that apply when you use the Daily Devotion website at getdailydevotion.com and join the first circle.",
+  description: "The terms that apply when you use the Daily Devotion website at getdailydevotion.com.",
   alternates: { canonical: "/terms" },
 };
 
@@ -36,8 +36,8 @@ const SECTIONS: LegalSection[] = [
     title: "Who may use the Website",
     body: (
       <p>
-        Anyone may browse the Website. To join the waitlist or send us a message, you must be at least 18 years old and
-        competent to contract under the Indian Contract Act, 1872.
+        Anyone may browse the Website. To write to us, you must be at least 18 years old and competent to contract under the
+        Indian Contract Act, 1872.
       </p>
     ),
   },
@@ -67,16 +67,19 @@ const SECTIONS: LegalSection[] = [
     title: "The first circle and the contact form",
     body: (
       <>
-        <p>When you join the waitlist (the &ldquo;first circle&rdquo;) or contact us through the Website:</p>
+        <p>
+          <b>The waitlist (&ldquo;first circle&rdquo;) form and the contact form on the Website do not send or store what
+          you type.</b> They check your entry in your browser and show a confirmation on screen, but nothing reaches us. A
+          confirmation on screen does not mean we have received your details or your message.
+        </p>
         <ul>
-          <li>the email address and other information you give must be your own and accurate;</li>
+          <li>to reach us, or to ask us to keep you posted, write to {mail(CONTACT_EMAIL)};</li>
           <li>
-            joining the waitlist does not create a contract, and does not guarantee access to Daily Devotion or a launch
-            date. We may decide who gets early access, and when, at our discretion;
+            using the forms does not create a contract, and does not guarantee access to Daily Devotion or a launch date.
+            We may decide who gets early access, and when, at our discretion; and
           </li>
-          <li>you can leave the waitlist at any time by writing to {mail(CONTACT_EMAIL)}; and</li>
           <li>
-            we handle the personal data you give us as described in our <Link href="/privacy">privacy policy</Link>.
+            we handle the personal data you send us by email as described in our <Link href="/privacy">privacy policy</Link>.
           </li>
         </ul>
       </>
@@ -90,7 +93,7 @@ const SECTIONS: LegalSection[] = [
         <p>You agree not to:</p>
         <ol>
           <li>use the Website for any unlawful, fraudulent or harmful purpose, or in breach of these Terms;</li>
-          <li>impersonate any person, sign anyone else up for the waitlist, or misrepresent your identity;</li>
+          <li>impersonate any person or misrepresent your identity;</li>
           <li>send spam, or submit false, automated or bulk entries through the Website&apos;s forms;</li>
           <li>scrape, crawl or copy the Website by automated means, except for search engines that follow our robots.txt file;</li>
           <li>probe, scan or test the vulnerability of the Website, or breach its security measures;</li>
@@ -176,7 +179,7 @@ const SECTIONS: LegalSection[] = [
     title: "Suspension of access",
     body: (
       <p>
-        We may suspend or restrict access to the Website, or remove entries from the waitlist, at any time, including to
+        We may suspend or restrict access to the Website at any time, including to
         protect its security or if we reasonably believe you have breached these Terms.
       </p>
     ),
@@ -243,7 +246,8 @@ const SECTIONS: LegalSection[] = [
     title: "Contact us",
     body: (
       <p>
-        For any question about these Terms, write to {mail(CONTACT_EMAIL)} or use our <Link href="/contact">contact page</Link>.
+        For any question about these Terms, write to {mail(CONTACT_EMAIL)}. The contact form on the Website does not send
+        messages, so please use email.
       </p>
     ),
   },

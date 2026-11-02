@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { joinWaitlist } from "@/app/actions/waitlist";
+import { waitlistSchema } from "@/lib/forms/schemas";
 import { LANGUAGES } from "@/lib/site";
 import { Offscreen } from "./Offscreen";
 import s from "./Circle.module.css";
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Status = "idle" | "success" | "error";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-/** The candle, the ring of twelve lights and the waitlist form. A successful sign-up lights all three. */
+/** The candle, the ring of twelve lights and the waitlist form. A valid entry lights all three. Nothing is sent anywhere. */
 export function CircleJoin({ heading }: { heading: ReactNode }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -20,35 +18,20 @@ export function CircleJoin({ heading }: { heading: ReactNode }) {
     if (status === "success") doneRef.current?.focus();
   }, [status]);
 
-  async function join(e: React.FormEvent<HTMLFormElement>) {
+  function join(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (status === "submitting") return;
     const form = new FormData(e.currentTarget);
-    const email = String(form.get("email") ?? "").trim();
-    if (!EMAIL_RE.test(email)) {
+    const parsed = waitlistSchema.safeParse({
+      email: String(form.get("email") ?? ""),
+      language: String(form.get("language") ?? "en"),
+    });
+    if (!parsed.success) {
       setStatus("error");
-      setError("Please enter a valid email address, then try again.");
+      setError(parsed.error.issues[0]?.message ?? "");
       return;
     }
-    setStatus("submitting");
     setError("");
-    try {
-      const res = await joinWaitlist({
-        email,
-        language: String(form.get("language") ?? "en"),
-        website: String(form.get("website") ?? ""),
-      });
-      if (res.status === "error") {
-        setStatus("error");
-        setError(res.message);
-      } else {
-        setStatus("success");
-      }
-    } catch {
-      // The action itself couldn't be reached (offline, deploy in progress).
-      setStatus("error");
-      setError("We couldn't reach our server. Please check your connection and try again.");
-    }
+    setStatus("success");
   }
 
   const lit = status === "success";
@@ -73,7 +56,7 @@ export function CircleJoin({ heading }: { heading: ReactNode }) {
             <p className={s.muted}>We&apos;ll write to you when it&apos;s ready.</p>
           </div>
         ) : (
-          <form className={`card ${s.form}`} onSubmit={join} noValidate aria-busy={status === "submitting"}>
+          <form className={`card ${s.form}`} onSubmit={join} noValidate>
             <div className={s.field}>
               <label htmlFor="circle-email">Email</label>
               <input
@@ -94,15 +77,9 @@ export function CircleJoin({ heading }: { heading: ReactNode }) {
                 {LANGUAGES.map((l) => <option key={l.value} value={l.value}>{l.label}</option>)}
               </select>
             </div>
-            <div className={s.hp} aria-hidden="true">
-              <label htmlFor="circle-website">Website</label>
-              <input id="circle-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
-            </div>
-            <button type="submit" className="btn btn-glow" disabled={status === "submitting"}>
-              {status === "submitting" ? "Lighting…" : "Light my candle"}
-            </button>
+            <button type="submit" className="btn btn-glow">Light my candle</button>
             <p id="circle-status" className={status === "error" ? s.err : "sr-only"} aria-live="polite">
-              {status === "submitting" ? "Lighting your candle…" : status === "error" ? error : ""}
+              {status === "error" ? error : ""}
             </p>
           </form>
         )}

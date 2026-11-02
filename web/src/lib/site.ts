@@ -19,7 +19,7 @@ export const SECTIONS = [
   { id: "night", label: "Night" },
 ] as const;
 
-/** Options for "The language you reflect in". The waitlist action accepts the `value`s. */
+/** Options for "The language you reflect in". waitlistSchema accepts the `value`s. */
 export const LANGUAGES = [
   { value: "en", label: "English" },
   { value: "hi", label: "हिन्दी · Hindi" },

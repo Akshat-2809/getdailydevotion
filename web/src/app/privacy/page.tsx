@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { LegalDoc, type LegalSection } from "@/components/LegalDoc";
 import s from "@/components/LegalDoc.module.css";
 import { LEGAL_LOCATION } from "@/lib/legal";
@@ -28,9 +27,14 @@ const SECTIONS: LegalSection[] = [
         <p>This policy explains how we handle personal data when you:</p>
         <ul>
           <li>visit getdailydevotion.com (the &ldquo;Website&rdquo;);</li>
-          <li>join our waitlist, the &ldquo;first circle&rdquo;;</li>
-          <li>send us a message through the contact form, or write to us by email.</li>
+          <li>use the waitlist (&ldquo;first circle&rdquo;) form or the contact form on the Website;</li>
+          <li>write to us by email.</li>
         </ul>
+        <p>
+          <b>The forms on the Website do not send or store what you type.</b> They check your entry in your browser and
+          show a confirmation on screen, but your email address, name, language and message never leave your device and
+          never reach us. If you want us to hear from you, or to keep you posted, please email us at {mail(CONTACT_EMAIL)}.
+        </p>
         <p>
           We follow the Information Technology Act, 2000 and the Information Technology (Reasonable Security Practices and
           Procedures and Sensitive Personal Data or Information) Rules, 2011 (the &ldquo;SPDI Rules&rdquo;). We are also
@@ -50,24 +54,16 @@ const SECTIONS: LegalSection[] = [
         <h3>Data you give us</h3>
         <ul>
           <li>
-            <b>Waitlist:</b> your email address, and the language you reflect in, which you choose on the form.
-          </li>
-          <li>
-            <b>Contact form:</b> your name, email address and the message you write.
-          </li>
-          <li>
-            <b>Emails:</b> whatever you choose to include when you write to us.
+            <b>Emails:</b> your email address, your name if you include it, and whatever you choose to write when you email
+            us.
           </li>
         </ul>
+        <p>
+          We do not collect anything you type into the waitlist or contact forms on the Website. Those forms run only in
+          your browser and send nothing to us or to anyone else.
+        </p>
         <h3>Data collected automatically</h3>
         <ul>
-          <li>
-            <b>IP address:</b> used when you submit a form, to prevent spam and abuse. We store it only as a salted, one-way
-            hash, which cannot practically be turned back into your IP address.
-          </li>
-          <li>
-            <b>Browser information:</b> the user-agent string your browser sends when you submit a form.
-          </li>
           <li>
             <b>Server logs:</b> our hosting providers keep standard request logs (IP address, date and time, page or address
             requested, browser type) for security and reliability.
@@ -109,28 +105,13 @@ const SECTIONS: LegalSection[] = [
             </thead>
             <tbody>
               <tr>
-                <td>Keep your place in the first circle and tell you when you can try Daily Devotion</td>
-                <td>Email address</td>
-                <td>Your consent, given when you join</td>
-              </tr>
-              <tr>
-                <td>Understand which languages people reflect in, and write to you in yours where we can</td>
-                <td>Language</td>
-                <td>Your consent</td>
-              </tr>
-              <tr>
-                <td>Send a short welcome email confirming you&apos;re in</td>
-                <td>Email address</td>
-                <td>Your consent</td>
-              </tr>
-              <tr>
-                <td>Read and reply to your message</td>
-                <td>Name, email address, message</td>
+                <td>Read and reply to your email</td>
+                <td>Email address, name, message</td>
                 <td>Your consent, and data you provided voluntarily for that purpose</td>
               </tr>
               <tr>
-                <td>Keep the Website secure and prevent spam and abuse</td>
-                <td>Hashed IP address, browser information, server logs</td>
+                <td>Keep the Website secure and reliable</td>
+                <td>Server logs</td>
                 <td>Reasonable security practices required by law</td>
               </tr>
               <tr>
@@ -143,8 +124,8 @@ const SECTIONS: LegalSection[] = [
         </div>
         <p>
           We do not sell personal data, we do not use it to show you advertising, and we do not use it for automated
-          decisions that have legal or similarly significant effects on you. We will only email you about Daily Devotion, and
-          you can ask us to stop at any time.
+          decisions that have legal or similarly significant effects on you. We will only use your email address to reply to
+          you, and you can ask us to stop at any time.
         </p>
       </>
     ),
@@ -173,18 +154,8 @@ const SECTIONS: LegalSection[] = [
             <tbody>
               <tr>
                 <td>Vercel Inc.</td>
-                <td>Website hosting and delivery, including the server code that handles the forms</td>
-                <td>Server logs, form submissions in transit</td>
-              </tr>
-              <tr>
-                <td>Neon (Databricks, Inc.)</td>
-                <td>Database hosting for waitlist sign-ups and contact messages</td>
-                <td>Email, language, name and message (contact form only), hashed IP, browser information, server logs</td>
-              </tr>
-              <tr>
-                <td>Resend (Plus Five Five, Inc.)</td>
-                <td>Sending the welcome email, message acknowledgements and our internal notifications</td>
-                <td>Email address and language; name and message for contact-form emails</td>
+                <td>Website hosting and delivery</td>
+                <td>Server logs</td>
               </tr>
             </tbody>
           </table>
@@ -224,15 +195,7 @@ const SECTIONS: LegalSection[] = [
       <>
         <ul>
           <li>
-            <b>Waitlist sign-ups:</b> until you ask us to remove you, or until we close the waitlist, whichever comes first.
-            We review the list at least once every 24 months and delete entries we no longer need.
-          </li>
-          <li>
-            <b>Contact messages and email correspondence:</b> for up to 24 months after our last exchange, then deleted.
-          </li>
-          <li>
-            <b>Hashed IP addresses and browser information</b> are kept with the sign-up or message they belong to, and
-            deleted with it.
+            <b>Email correspondence:</b> for up to 24 months after our last exchange, then deleted.
           </li>
           <li>
             <b>Server logs</b> are kept by our hosting providers for a short period, typically no more than 30 days.
@@ -252,10 +215,8 @@ const SECTIONS: LegalSection[] = [
           Technology Act, 2000 and the SPDI Rules, including:
         </p>
         <ul>
-          <li>encryption of data in transit (TLS) and at rest;</li>
-          <li>access limited to the people who need it, with multi-factor authentication on our accounts;</li>
-          <li>storing IP addresses only as salted one-way hashes;</li>
-          <li>limits on how many forms can be submitted from one network, to stop abuse; and</li>
+          <li>encryption of data in transit (TLS);</li>
+          <li>access limited to the people who need it, with multi-factor authentication on our accounts; and</li>
           <li>choosing service providers with strong security practices, and reviewing our controls regularly.</li>
         </ul>
         <p>
@@ -281,15 +242,15 @@ const SECTIONS: LegalSection[] = [
           <li>ask us to correct, complete or update inaccurate or incomplete data;</li>
           <li>ask us to erase your data, unless the law requires us to keep it;</li>
           <li>
-            withdraw your consent at any time, as easily as you gave it. For the waitlist, just ask to be removed. This does
-            not affect processing that already took place;
+            withdraw your consent at any time, as easily as you gave it. This does not affect processing that already took
+            place;
           </li>
           <li>nominate another person to exercise your rights if you die or become unable to do so; and</li>
           <li>have your grievances addressed by us, and then, if you are not satisfied, by the Data Protection Board of India.</li>
         </ol>
         <p>
-          To exercise any of these rights, email {mail(CONTACT_EMAIL)} with the subject &ldquo;Privacy request&rdquo;, or use
-          our <Link href="/contact">contact form</Link>. We may ask you to confirm your identity before acting on the request.
+          To exercise any of these rights, email {mail(CONTACT_EMAIL)} with the subject &ldquo;Privacy request&rdquo;. The
+          contact form on the Website does not send messages, so please use email. We may ask you to confirm your identity before acting on the request.
           We will respond within 30 days.
         </p>
         <p>
@@ -304,8 +265,9 @@ const SECTIONS: LegalSection[] = [
     title: "Children",
     body: (
       <p>
-        The waitlist and contact form are meant for people aged 18 or over. We do not knowingly collect personal data from
-        children. If you believe a child has sent us personal data, please contact us and we will delete it.
+        The Website is meant for people aged 18 or over. Its forms do not send or store anything, and we do not knowingly
+        collect personal data from children. If you believe a child has emailed us personal data, please contact us and we
+        will delete it.
       </p>
     ),
   },
@@ -344,8 +306,8 @@ const SECTIONS: LegalSection[] = [
     body: (
       <p>
         We may update this policy as Daily Devotion or the law changes. We will post the new version on this page with a new
-        &ldquo;Last updated&rdquo; date. If we make a material change, we will tell people on the waitlist by email before it
-        takes effect.
+        &ldquo;Last updated&rdquo; date. If we make a material change, we will say so clearly on this page before it takes
+        effect.
       </p>
     ),
   },
@@ -354,8 +316,8 @@ const SECTIONS: LegalSection[] = [
     title: "Contact us",
     body: (
       <p>
-        For any question about this policy or how we handle personal data, write to {mail(CONTACT_EMAIL)} or use our{" "}
-        <Link href="/contact">contact page</Link>.
+        For any question about this policy or how we handle personal data, write to {mail(CONTACT_EMAIL)}. This email
+        address is the way to reach us; the contact form on the Website does not send messages.
       </p>
     ),
   },
@@ -370,7 +332,7 @@ export default function PrivacyPage() {
           <p>Devotion asks us to slow down, return, and remember. Respecting that includes respecting your data.</p>
           <p>
             This policy explains what we collect, why, who we share it with, how long we keep it, and the rights you have.
-            The short version: we only ask for what we need to keep you posted, and we never sell it.
+            The short version: the forms on this site don&apos;t send or store what you type, and we never sell your data.
           </p>
         </>
       }
