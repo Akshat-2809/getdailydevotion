@@ -138,29 +138,9 @@ const SECTIONS: LegalSection[] = [
         <p>We share personal data only where needed, and only with:</p>
         <ul>
           <li>
-            <b>Service providers</b> who process data on our behalf under contracts with confidentiality and security
-            obligations:
+            <b>Service providers</b>, such as our website hosting provider, who process data on our behalf under contracts
+            with confidentiality and security obligations.
           </li>
-        </ul>
-        <div className={s.tableWrap}>
-          <table className={s.table}>
-            <thead>
-              <tr>
-                <th scope="col">Provider</th>
-                <th scope="col">What they do for us</th>
-                <th scope="col">Data involved</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Vercel Inc.</td>
-                <td>Website hosting and delivery</td>
-                <td>Server logs</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <ul>
           <li>
             <b>Professional advisers</b>, such as lawyers and auditors, under a duty of confidentiality.
           </li>
@@ -181,7 +161,7 @@ const SECTIONS: LegalSection[] = [
     title: "Where your data is stored",
     body: (
       <p>
-        The service providers listed in section 04 may store or process data outside India. The DPDP Law permits such
+        Our service providers may store or process data outside India. The DPDP Law permits such
         transfers except to countries the Central Government restricts by notification, and we will not transfer personal
         data to any restricted country. We use providers that commit by contract to protect the data to a standard at least
         equal to Indian law.
