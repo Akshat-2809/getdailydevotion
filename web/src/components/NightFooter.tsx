@@ -31,7 +31,7 @@ export function NightFooter({ home = true }: { home?: boolean }) {
         <span className={s.win} style={{ left: "71%", animationDelay: "1.6s" }} />
       </div>
       <div className={s.legal}>
-        <span>© 2026 Daily Devotion · Hyderabad</span>
+        <span>© 2026 Daily Devotion · All rights reserved · Hyderabad</span>
         <span>
           <Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link> · <Link href="/contact">Contact</Link> ·{" "}
           <Link href={`${base}#dawn`}>Back to dawn ↑</Link>
